@@ -3,6 +3,8 @@ package rewards
 class CustomerController {
     static scaffold = true
 
+    def calculationsService
+
     def lookup() {
         def customerInstance = Customer.findAllByTotalPointsGreaterThan(3, [sort: "totalPoints", order: "desc"])
         [customerInstanceList: customerInstance]
@@ -24,6 +26,7 @@ class CustomerController {
 
     def show(Long id) {
         def customerInstance = Customer.get(id)
+        customerInstance = calculationsService.getTotalPoints(customerInstance)
         [customerInstance: customerInstance]
     }
 
@@ -43,10 +46,24 @@ class CustomerController {
         def customerInstance = Customer.get(id)
         customerInstance.delete()
         redirect(action: "index")
+    }
 
+    def customerLookup(Customer lookupInstance) {
+        def (customerInstance, welcomeMessage) = calculationsService.processCheckin(lookupInstance)
+        render(view: "checkin", model: [customerInstance: customerInstance, welcomeMessage: welcomeMessage])
     }
 
     def checkin() {
 
+    }
+
+    def profile() {
+        def customerInstance = Customer.findByPhone(params.id)
+        [customerInstance: customerInstance]
+    }
+
+    def updateProfile(Customer customerInstance) {
+        customerInstance.save()
+        render(view: "profile", model:[customerInstance: customerInstance])
     }
 }
