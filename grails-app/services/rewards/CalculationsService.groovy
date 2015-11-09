@@ -8,21 +8,22 @@ class CalculationsService {
     def welcome(params) {
         def firstName = params.first
         def totalPoints = params.points.toInteger()
-        def welcomeMessage
+        def theWelcomeMsg
 
-        switch(totalPoints){
+        switch (totalPoints) {
             case 5:
-                welcomeMessage = "Welcome back $firstName. This drink is on us."
+                theWelcomeMsg = "Welcome back $firstName. This drink is on us."
                 break
             case 4:
-                welcomeMessage = "Welcome back $firstName. Your next drink is free."
+                theWelcomeMsg = "Welcome back $firstName. Your next drink is free."
                 break
             case 2..3:
-                welcomeMessage = "Welcome back $firstName. You now have $totalPoints points."
+                theWelcomeMsg = "Welcome back $firstName. You now have $totalPoints points."
                 break
             default:
-                welcomeMessage = "Welcome $firstName. Thanks you for registering."
+                theWelcomeMsg = "Welcome $firstName. Thanks you for registering."
                 break
         }
+
     }
 }
