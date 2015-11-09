@@ -17,6 +17,16 @@ class CustomerController {
         [customerInstance: new Customer()]
     }
 
+    def save(Customer customerInstance) {
+        customerInstance.save()
+        redirect(action: "show", id: customerInstance.id)
+    }
+
+    def show(Long id) {
+        def customerInstance = Customer.get(id)
+        [customerInstance: customerInstance]
+    }
+
     def checkin() {
 
     }
