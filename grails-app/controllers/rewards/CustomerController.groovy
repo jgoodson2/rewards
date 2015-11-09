@@ -27,6 +27,25 @@ class CustomerController {
         [customerInstance: customerInstance]
     }
 
+    def edit(Long id) {
+        def customerInstance = Customer.get(id)
+        [customerInstance: customerInstance]
+    }
+
+    def update(Long id) {
+        def customerInstance = Customer.get(id)
+        customerInstance.properties = params
+        customerInstance.save()
+        redirect(action: "show", id: customerInstance.id)
+    }
+
+    def delete(Long id) {
+        def customerInstance = Customer.get(id)
+        customerInstance.delete()
+        redirect(action: "index")
+
+    }
+
     def checkin() {
 
     }
